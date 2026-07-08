@@ -1,0 +1,11 @@
+{
+  "symbol": "^NSEI",
+  "period": "1y",
+  "side": "Long",
+  "entry_price": 23882.05,
+  "entry_time": "2026-07-08 22:13:53",
+  "target_peak": 24429.28,
+  "stop_loss": 23541.55,
+  "confidence": 93,
+  "direction": "Bullish"
+}
