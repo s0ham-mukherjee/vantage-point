@@ -1,0 +1,4 @@
+.app_state/
+models/
+__pycache__/
+*.pyc
