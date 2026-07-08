@@ -15,7 +15,6 @@ The engine packages a modular research stack behind a Flask API and a dark-theme
 - **Bullish / Bearish / Sideways** classification from probability thresholds (≥ 0.55 Bullish, ≤ 0.45 Bearish, else Sideways)
 - **Confidence score** (0–100%) from max(probability_up, 1 − probability_up)
 - **Dual prediction engines:**
-  - **Trained ML ensemble** from `models/vantage_point_models.joblib` when available
   - **Fallback: Weighted Bayesian Technical Model** using `BayesianUpProbability` + `WeightedScore`
 - **Volatility-adjusted signal** — raw probability penalized by ATR% to reduce overconfidence in high-volatility regimes
 
