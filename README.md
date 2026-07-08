@@ -4,7 +4,7 @@
   <img src="screenshots/dashboard.png" width="900"/>
 </p>
 
-Vantage Point Research Engine is a standalone quant research platform. It lives in `vantage_point_research_engine/` and does not modify the root app, `optimised_version_v1`, or `pulse_v2`.
+Vantage Point Research Engine is a standalone quant research platform. 
 
 The engine packages a modular research stack behind a Flask API and a dark-themed single-page dashboard. Run predictions, backtests, Monte Carlo simulations, and optional ML inference from one interface.
 
