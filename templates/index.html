@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v={{ static_version }}">
+    <script src="{{ url_for('static', filename='js/app.js') }}?v={{ static_version }}" defer></script>
+  </head>
+  <body>
+    <main class="terminal">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark"></span><div><h1>Vantage Point</h1><p>Research Engine</p></div></div>
+        <form id="predict-form" class="control-panel">
+          <label for="symbol">Ticker</label>
+          <div class="symbol-row"><input id="symbol" value="AAPL" autocomplete="off"><button>Run</button></div>
+          <label for="period">History</label>
+          <select id="period">
+            <option value="1d">1 day</option>
+            <option value="5d">5 days</option>
+            <option value="3mo">3 months</option>
+            <option value="6mo">6 months</option>
+            <option value="1y" selected>1 year</option>
+            <option value="2y">2 years</option>
+            <option value="5y">5 years</option>
+          </select>
+        </form>
+        <section class="prediction-card hero-panel"><span class="eyebrow">Direction</span><strong id="direction">Loading</strong><div class="meter"><span id="confidence-bar"></span></div><p><span id="confidence">--</span>% confidence</p></section>
+        <section class="levels">
+          <div><span>Last</span><strong id="last-price">--</strong></div>
+          <div><span>Target</span><strong id="target-peak">--</strong></div>
+          <div><span>Stop</span><strong id="stop-loss">--</strong></div>
+          <div><span>Risk / reward</span><strong id="risk-reward">--</strong></div>
+        </section>
+        <section class="research-card">
+          <span class="eyebrow">Market Regime</span>
+          <strong id="regime-label">--</strong>
+          <p id="regime-action">Loading research layer...</p>
+        </section>
+        <section class="research-card source-card">
+          <span class="eyebrow">Data Source</span>
+          <strong id="source-kind">--</strong>
+          <p id="source-detail">Waiting for provider status.</p>
+        </section>
+        <section class="monitor-card">
+          <div class="monitor-head"><span class="eyebrow">Risk Layer</span><span id="monitor-status">Waiting</span></div>
+          <strong id="monitor-pnl">--</strong>
+          <div class="monitor-grid">
+            <div><span>Side</span><b id="monitor-side">--</b></div>
+            <div><span>Qty</span><b id="risk-qty">--</b></div>
+            <div><span>Entry</span><b id="monitor-entry">--</b></div>
+            <div><span>Move</span><b id="monitor-percent">--</b></div>
+          </div>
+          <p id="monitor-updated">Run a prediction to start monitoring.</p>
+        </section>
+      </aside>
+      <section class="workspace">
+        <header class="topbar">
+          <div><span id="symbol-label" class="ticker">AAPL</span><span id="period-label" class="timeframe">1Y</span></div>
+          <div class="chart-tools"><button type="button" class="tool-button active" data-chart-type="candles">Candles</button><button type="button" class="tool-button" data-chart-type="worm">Worm</button></div>
+          <p id="status">Fetching market history...</p>
+        </header>
+        <section class="chart-shell">
+          <div class="chart-overlay">
+            <span>Forecast</span>
+            <strong id="forecast-trend">--</strong>
+            <b id="forecast-price">--</b>
+          </div>
+          <canvas id="price-chart"></canvas>
+          <div id="crosshair" class="crosshair" hidden><span></span></div>
+        </section>
+        <section class="details-grid">
+          <article class="indicator-strip">
+            <div><span>ML Up</span><strong id="ml-probability">--</strong></div>
+            <div><span>Bayesian Up</span><strong id="bayes-probability">--</strong></div>
+            <div><span>Weighted</span><strong id="weighted-score">--</strong></div>
+            <div><span>ATR</span><strong id="atr">--</strong></div>
+          </article>
+          <article class="signals">
+            <h2>Strategy Comparison</h2>
+            <div id="strategy-list"></div>
+          </article>
+        </section>
+        <section class="analytics-tabs">
+          <div class="tabbar">
+            <button type="button" class="tab-button active" data-tab="model-performance">Model Performance</button>
+            <button type="button" class="tab-button" data-tab="equity-curve">Equity Curve</button>
+            <button type="button" class="tab-button" data-tab="drawdown-chart">Drawdown</button>
+          </div>
+          <article class="tab-panel active" id="model-performance">
+            <div class="model-grid">
+              <div class="metric-card"><span>Best Model</span><strong id="model-best">--</strong></div>
+              <div class="metric-card"><span>Accuracy</span><strong id="model-accuracy">--</strong></div>
+              <div class="metric-card"><span>Precision</span><strong id="model-precision">--</strong></div>
+              <div class="metric-card"><span>Recall</span><strong id="model-recall">--</strong></div>
+              <div class="metric-card"><span>F1</span><strong id="model-f1">--</strong></div>
+              <div class="metric-card"><span>Brier</span><strong id="model-brier">--</strong></div>
+            </div>
+            <div class="model-lists">
+              <div>
+                <h2>Model Leaderboard</h2>
+                <div id="model-leaderboard" class="compact-list"></div>
+              </div>
+              <div>
+                <h2>Calibration</h2>
+                <div id="calibration-list" class="compact-list"></div>
+              </div>
+            </div>
+          </article>
+          <article class="tab-panel" id="equity-curve">
+            <div class="chart-card">
+              <div class="chart-card-head"><h2 id="equity-title">Equity Curve</h2><span id="equity-summary">--</span></div>
+              <canvas id="equity-chart"></canvas>
+            </div>
+          </article>
+          <article class="tab-panel" id="drawdown-chart">
+            <div class="chart-card">
+              <div class="chart-card-head"><h2 id="drawdown-title">Drawdown Chart</h2><span id="drawdown-summary">--</span></div>
+              <canvas id="drawdown-canvas"></canvas>
+            </div>
+          </article>
+        </section>
+        <section class="research-grid">
+          <article class="research-panel">
+            <h2>Explainable AI</h2>
+            <div class="research-head"><strong id="xai-prediction">--</strong><span id="xai-confidence">--</span></div>
+            <div class="tag-list" id="xai-reasons"></div>
+            <div class="tag-list risk" id="xai-risks"></div>
+          </article>
+          <article class="research-panel">
+            <h2>Monte Carlo</h2>
+            <div class="metric-row"><span>Expected</span><strong id="mc-expected">--</strong></div>
+            <div class="metric-row"><span>Positive probability</span><strong id="mc-positive">--</strong></div>
+            <div class="metric-row"><span>Worst 5%</span><strong id="mc-worst">--</strong></div>
+          </article>
+          <article class="research-panel">
+            <h2>Portfolio</h2>
+            <div class="metric-row"><span>Max Sharpe weight</span><strong id="portfolio-weight">--</strong></div>
+            <div class="metric-row"><span>Risk parity</span><strong id="risk-parity">--</strong></div>
+            <div class="metric-row"><span>Min volatility</span><strong id="min-vol">--</strong></div>
+          </article>
+          <article class="research-panel">
+            <h2>Validation</h2>
+            <div class="metric-row"><span>Walk-forward windows</span><strong id="walk-forward">--</strong></div>
+            <div class="metric-row"><span>Out of sample</span><strong id="oos-test">--</strong></div>
+            <div class="metric-row"><span>Leakage guard</span><strong id="leakage-guard">--</strong></div>
+          </article>
+          <article class="research-panel">
+            <h2>Research Hypothesis</h2>
+            <p id="hypothesis-question" class="hypothesis-copy">--</p>
+            <div class="metric-row"><span>H₀</span><strong id="hypothesis-null">--</strong></div>
+            <div class="metric-row"><span>H₁</span><strong id="hypothesis-alt">--</strong></div>
+            <div class="metric-row"><span>Current signal</span><strong id="hypothesis-signal">--</strong></div>
+          </article>
+          <article class="research-panel wide">
+            <h2>Statistical Significance</h2>
+            <div id="significance-tests" class="compact-list"></div>
+            <div class="metric-row"><span>Overall (α = 0.05)</span><strong id="significance-conclusion">--</strong></div>
+          </article>
+          <article class="research-panel wide">
+            <h2>Roadmap Coverage</h2>
+            <div class="roadmap-list" id="roadmap-list"></div>
+          </article>
+          <article class="research-panel wide">
+            <h2>Research Documentation</h2>
+            <pre id="research-paper"></pre>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
