@@ -1,5 +1,9 @@
 # Vantage Point Research Engine
 
+<p align="center">
+  <img src="screenshots/dashboard.png" width="900"/>
+</p>
+
 Vantage Point Research Engine is a standalone quant research platform. It lives in `vantage_point_research_engine/` and does not modify the root app, `optimised_version_v1`, or `pulse_v2`.
 
 The engine packages a modular research stack behind a Flask API and a dark-themed single-page dashboard. Run predictions, backtests, Monte Carlo simulations, and optional ML inference from one interface.
@@ -172,7 +176,7 @@ Auto-loads prediction on page load; period change triggers a new prediction.
 ## Run
 
 ```powershell
-cd "C:\Users\soham\OneDrive\Documents\Stock Market Predictor\vantage_point_research_engine"
+cd "replace with where the program is installed"
 python -m pip install -r requirements.txt
 python app.py
 ```
@@ -295,6 +299,12 @@ vantage_point_research_engine/
 | Research hypothesis and statistical significance tests | Bonferroni / FDR multiple-testing correction |
 | Canvas dashboard with live/demo data | Pairs/cointegration live trading |
 | 5 REST API endpoints | Reinforcement learning agent |
+
+## Demo Video
+
+Watch the full walkthrough:
+
+[▶ Vantage Point Research Engine Demo](./demo%20video.mp4)
 
 ## Disclaimer
 
