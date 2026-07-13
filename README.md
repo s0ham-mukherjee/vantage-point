@@ -8,7 +8,7 @@ Vantage Point Research Engine is a standalone quant research platform.
 
 The engine packages a modular research stack behind a Flask API and a dark-themed single-page dashboard. Run predictions, backtests, Monte Carlo simulations, and optional ML inference from one interface.
 
-## Features
+## InBuilt Features
 
 ### Directional prediction
 
@@ -18,13 +18,13 @@ The engine packages a modular research stack behind a Flask API and a dark-theme
   - **Fallback: Weighted Bayesian Technical Model** using `BayesianUpProbability` + `WeightedScore`
 - **Volatility-adjusted signal** — raw probability penalized by ATR% to reduce overconfidence in high-volatility regimes
 
-### Price forecast
+### Price forecasting
 
 - **12-bar forecast path** with upper/lower confidence bands
 - Expected price, trend (Up / Down / Flat), and forecast confidence
 - Target and stop-loss overlays on the price chart
 
-### Risk management and trade monitor
+### Risk management and trade monitoring
 
 - **Side:** Long / Short / Watch
 - **ATR-based stop-loss and target** (1.4× ATR stop, 2.25× ATR target)
