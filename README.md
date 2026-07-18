@@ -307,4 +307,4 @@ Watch the full walkthrough:
 
 ## Disclaimer
 
-Vantage Point Research Engine is for education and research. It is not financial advice.Made by Soham Mukherjee
+Vantage Point Research Engine is for education and research. It is not financial advice.Made by Soham Mukherjee, B.Tech ECE TIET
